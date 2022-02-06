@@ -1,0 +1,21 @@
+#!/bin/bash
+
+
+not_playing_in_loop=$(ps -ef | grep mpv | grep -v grep | sort -r | gawk '{ print $10 }' | head -1)
+playing_in_loop=$(ps -ef | grep mpv | grep -v grep | sort -r | gawk '{ print $11 }')
+
+single_song=$(basename $not_playing_in_loop)
+single_song2=${single_song%.*}
+
+loop_song=$(basename $playing_in_loop)
+loop_song2=${loop_song%.*}
+
+if [[ "$single_song" != "" ]];then
+
+    echo -e "<span color='black' bgcolor='#FF1493'>$single_song2</span>\n"
+
+elif [[ "$loop_song" != "" ]];then
+
+    echo -e "<span color='black' bgcolor='#FF1493'>$loop_song2</span>\n"
+
+fi
